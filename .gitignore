@@ -1,3 +1,7 @@
+# Reddit Authorization
+reddit_auth.py
+learn2scrape.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
