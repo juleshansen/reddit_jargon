@@ -3,7 +3,7 @@ import reddit_auth
 
 reddit = reddit_auth.create_reddit_object()
 
-posts = list(reddit.subreddit('politics').top(time_filter='year', limit=1))
+posts = list(reddit.subreddit('politics').hot(limit=1))
 
 conn = psycopg2.connect('postgres://postgres:password@127.0.0.1:5432/reddit')
 curr = conn.cursor()
@@ -35,6 +35,6 @@ for post in posts:
         curr.execute(query, json)
         conn.commit()
         comment_iter += 1
-        print(f'\rStored {comment_iter} comments from {post_iter} posts...')
+        print(f'Stored {comment_iter} comments from {post_iter} posts...', end='\r')
 
 conn.close()
