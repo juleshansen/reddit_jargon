@@ -14,7 +14,7 @@ sub_list = [
     'frugal',
     'CryptoCurrency',
     'Finance'
-    ]
+]
 
 for sub in sub_list:
     posts = list(reddit.subreddit(sub).hot(limit=1000))
