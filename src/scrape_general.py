@@ -1,5 +1,16 @@
 import psycopg2
 import reddit_auth
+import sys
+
+if sys.argv[1]:
+    limit = int(sys.argv[1])
+else:
+    limit = 100
+
+if sys.argv[2]:
+    sub_name = sys.argv[2]
+else:
+    sub_name = 'all'
 
 reddit = reddit_auth.create_reddit_object()
 
@@ -9,7 +20,7 @@ curr = conn.cursor()
 post_iter = 0
 comment_iter = 0
 
-posts = list(reddit.subreddit('all').hot(limit=3000))
+posts = list(reddit.subreddit(sub_name).hot(limit=limit))
 
 for post in posts:
     post.comments.replace_more(limit=None)
