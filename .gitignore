@@ -1,6 +1,7 @@
 # Reddit Authorization
 reddit_auth.py
 learn2scrape.py
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
