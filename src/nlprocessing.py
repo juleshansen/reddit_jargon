@@ -42,7 +42,7 @@ class ProcessCorpus():
         '''
         Removes all punctuation from corpus.
         '''
-        strip_punc = re.compile('[%s]' % re.escape(string.punctuation))
+        strip_punc = re.compile('[%s0-9]' % re.escape(string.punctuation))
         no_punc = [strip_punc.sub('', comment) for comment in self.corpus]
         return no_punc
 
@@ -71,7 +71,14 @@ class ProcessCorpus():
             for token in text:
                 self.frequency_dict[token] += 1
 
-    def fit(self, corpus):
+    def __filter_english(self):
+        return [
+            [word for word in comment
+                if word not in self.eng_dict]
+            for comment in self.corpus_filtered
+        ]
+
+    def fit(self, corpus, frequency=0):
         '''
         Call to process corpus.
 
@@ -90,6 +97,8 @@ class ProcessCorpus():
         self.gensim_corpus = [
             self.gensim_dictionary.doc2bow(text) for text in self.corpus
             ]
+        # Apply filtering from here on
+        self.apply_filter(frequency)
 
     def return_frequency_filter(self, frequency=1):
         freq_filter = [
@@ -98,11 +107,14 @@ class ProcessCorpus():
         ]
         return freq_filter
 
-    def apply_frequency_filter(self, frequency=1):
-        self.corpus_freq = self.return_frequency_filter(frequency)
-        self.gensim_dictionary_freq = gensim.corpora.Dictionary(self.corpus)
-        temp = self.gensim_dictionary_freq
+    def apply_filter(self, frequency=1):
+        self.corpus_filtered = self.return_frequency_filter(frequency)
+        self.corpus_filtered = self.__filter_english()
+        self.gensim_dictionary_filtered = gensim.corpora.Dictionary(
+            self.corpus)
+        temp = self.gensim_dictionary_filtered[0]
         del temp
-        self.gensim_corpus_freq = [
-            self.gensim_dictionary.doc2bow(text) for text in self.corpus
+        self.gensim_corpus_filtered = [
+            self.gensim_dictionary_filtered.doc2bow(text)
+            for text in self.corpus_filtered
             ]
