@@ -63,4 +63,9 @@ if(typeof(LDAvis) !== "undefined"){
 ```
 ## Citations
 Farrell, Tracie & Araque, Oscar & Fernandez, Miriam & Alani, Harith. (2020). On the use of Jargon and Word Embeddings to Explore Subculture within the Reddit’s Manosphere. 221-230. 10.1145/3394231.3397912.
+<<<<<<< HEAD
 
+=======
+<div xhtml=img/lda_vis.html>
+</div> 
+>>>>>>> parent of 236e4a5... vis attempt 3
