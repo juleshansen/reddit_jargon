@@ -6,9 +6,6 @@ import contractions
 import re
 import string
 
-eng_dict = set(words.words())
-stops = set(stopwords.words('english'))
-
 
 class ProcessCorpus():
     '''
@@ -23,9 +20,12 @@ class ProcessCorpus():
     supplied to gensim.
     '''
 
-    def __init__(self, stopwords=stops, eng_dict=eng_dict):
-        self.stopwords = stopwords
-        self.eng_dict = eng_dict
+    def __init__(self):
+        '''
+        Initialize object with an english dictionary and a list of stopwords.
+        '''
+        self.stopwords = set(stopwords.words('english'))
+        self.eng_dict = set(words.words())
 
     def __expand_contractions(self):
         '''
@@ -43,7 +43,8 @@ class ProcessCorpus():
         Removes all punctuation from corpus.
         '''
         strip_punc = re.compile('[%s0-9]' % re.escape(string.punctuation))
-        no_punc = [strip_punc.sub('', comment) for comment in self.corpus]
+        no_punc = [strip_punc.sub('', comment.lower())
+                   for comment in self.corpus]
         return no_punc
 
     def __lemmatize(self):
@@ -75,7 +76,7 @@ class ProcessCorpus():
         return [
             [word for word in comment
                 if word not in self.eng_dict]
-            for comment in self.corpus_filtered
+            for comment in self.corpus
         ]
 
     def fit(self, corpus, frequency=0):
@@ -83,8 +84,15 @@ class ProcessCorpus():
         Call to process corpus.
 
         Creates attributes:
-        corpus - processed
-        gensim_dictionary
+        corpus - processed full set
+        gensim_dictionary - a dictionary formatted for input into gensim
+        gensim_dictionary_filtered - same as above, but removed words found
+            in the provided english dictionary and terms that as many or fewer
+            times than the frequency variable
+        gensim_corpus - corpus formatted for gensim
+        gensim_corpus_filtered - same as above, but removed words found
+            in the provided english dictionary and terms that as many or fewer
+            times than the frequency variable
         '''
         self.corpus = corpus
         self.corpus = self.__expand_contractions()
@@ -93,6 +101,8 @@ class ProcessCorpus():
         self.__frequency_dict()
         self.gensim_dictionary = gensim.corpora.Dictionary(self.corpus)
         temp = self.gensim_dictionary[0]
+#         
+        self.gensim_dictionary.filter_extremes(no_below=frequency, no_above=1.0)
         del temp
         self.gensim_corpus = [
             self.gensim_dictionary.doc2bow(text) for text in self.corpus
@@ -108,13 +118,13 @@ class ProcessCorpus():
         return freq_filter
 
     def apply_filter(self, frequency=1):
-        self.corpus_filtered = self.return_frequency_filter(frequency)
+#         self.corpus_filtered = self.return_frequency_filter(frequency)
         self.corpus_filtered = self.__filter_english()
-        self.gensim_dictionary_filtered = gensim.corpora.Dictionary(
-            self.corpus)
-        temp = self.gensim_dictionary_filtered[0]
-        del temp
+#         self.gensim_dictionary_filtered = gensim.corpora.Dictionary(
+#             self.corpus)
+#         temp = self.gensim_dictionary_filtered[0]
+#         del temp
         self.gensim_corpus_filtered = [
-            self.gensim_dictionary_filtered.doc2bow(text)
+            self.gensim_dictionary.doc2bow(text)
             for text in self.corpus_filtered
             ]
