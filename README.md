@@ -3,7 +3,7 @@
     <a href="https://docs.google.com/presentation/d/1Mre8i4YkmLDQp15qWIPwWjul9le7PRTvLmX7IMy2yrA/edit?usp=sharing">Slideshow Presentation</a>
 </h2>
 
-## Extraction Process as outlined by Farrell[1]
+## Extraction Process as outlined by Farrell<sup>[1]</sup>
 
  1. Frequency Filtering
  2. Dictionary-based Filtering
@@ -21,4 +21,4 @@ The most active commenters appear to be in AskReddit, which is a subreddit for a
 <a href="https://htmlpreview.github.io/?https://github.com/juleshansen/reddit_jargon/blob/main/img/lda_vis.html"><h2>LDA Visualization</h2></a>
 
 ## Citations
-Farrell, Tracie & Araque, Oscar & Fernandez, Miriam & Alani, Harith. (2020). On the use of Jargon and Word Embeddings to Explore Subculture within the Reddit’s Manosphere. 221-230. 10.1145/3394231.3397912.
+1. Farrell, Tracie & Araque, Oscar & Fernandez, Miriam & Alani, Harith. (2020). On the use of Jargon and Word Embeddings to Explore Subculture within the Reddit’s Manosphere. 221-230. 10.1145/3394231.3397912.
