@@ -1,5 +1,5 @@
 # Analyzing Jargon on Reddit 
-<div style="align:center">
+<div style="text-align:center">
     <h2>
         <a href="https://docs.google.com/presentation/d/1Mre8i4YkmLDQp15qWIPwWjul9le7PRTvLmX7IMy2yrA/edit?usp=sharing">Slideshow Presentation</a>
     </h2>
