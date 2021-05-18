@@ -1,4 +1,5 @@
 # Analyzing Jargon on Reddit 
+<a style="font-size:24px, align:center" href="https://docs.google.com/presentation/d/1Mre8i4YkmLDQp15qWIPwWjul9le7PRTvLmX7IMy2yrA/edit?usp=sharing">Slideshow Presentation</a>
 ## Extraction Process as outlined by Farrell[1]
 
  1. Frequency Filtering
