@@ -101,8 +101,9 @@ class ProcessCorpus():
         self.__frequency_dict()
         self.gensim_dictionary = gensim.corpora.Dictionary(self.corpus)
         temp = self.gensim_dictionary[0]
-#         
-        self.gensim_dictionary.filter_extremes(no_below=frequency, no_above=1.0)
+        self.gensim_dictionary.filter_extremes(
+            no_below=frequency,
+            no_above=1.0)
         del temp
         self.gensim_corpus = [
             self.gensim_dictionary.doc2bow(text) for text in self.corpus
